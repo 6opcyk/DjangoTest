@@ -1,0 +1,54 @@
+<form class="account-form">
+ 	<div style="background-color: #90EE90;  width: 50%; padding-top: 15px; margin: 100px auto 0px auto; border: 10px double #3CB371">
+ 		{% csrf_token %}
+		<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
+			<span style="width: 30%;">Email:</span>
+			<label><input type="email" name="email" maxlength="254" required/></label>
+	 	</div>
+
+	 	<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
+		 	<span style="width: 30%;">Имя:</span>
+		 	<label><input type="text" name="first_name" maxlength="120" required/></label> 
+	 	</div>
+
+	 	<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
+		 	<div style="width: 30%;">Фамилия:</div>
+		 	<label><input type="text" name="last_name" maxlength="120" required/></label> 
+	 	</div>
+
+	 	<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
+	 		<span style="width: 30%;">Пароль:</span>
+		 	<label><input type="text" name="password" maxlength="128" required /></label> 
+	 	</div>
+
+	 	<div align="center" style="padding: 20px;">
+	    	<input TYPE="button" Value="Добавить пользователя" onClick="authMe(this.form)">
+	    </div>
+	    
+	    <div align="center" style="margin-bottom: 20px; color: red;">
+	    	<span class="msgText"></span>
+	    </div>
+    </div>
+</form> 
+
+<script> 
+	function authMe(form){
+		let xhr = new XMLHttpRequest();
+	 	xhr.open("POST", 'http://localhost:8000/user/new/');
+		xhr.setRequestHeader("Content-type", 'application/x-www-form-urlencoded');
+		xhr.setRequestHeader("Authorization", `JWT ${localStorage.getItem('token')}`);
+		xhr.setRequestHeader("X-CSRFToken", form[0].value);
+		
+		xhr.onreadystatechange = function() {
+		    if(xhr.readyState == 4 & xhr.status === 200) {
+		    	var msgText = document.getElementsByClassName("msgText")[0];
+		    	msgText.innerText = "Succsess";
+		    }
+		    else if (xhr.readyState == 4){
+		    	var msgText = document.getElementsByClassName("msgText")[0];
+		    	msgText.innerText = "Error";
+		    }
+		}
+		xhr.send(`email=${form[1].value}&first_name=${form[2].value}&last_name=${form[3].value}&password=${form[4].value}`);
+	}
+</script>

@@ -1,0 +1,38 @@
+<form class="account-form">
+	<div style="background-color: #90EE90;  width: 50%; padding-top: 15px; margin: 100px auto 0px auto; border: 10px double #3CB371">
+		{% csrf_token %}
+		<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
+			<span style="width: 30%;">Etherscan адрес:</span>
+			<label><input type="text" name="eth_adress" maxlength="128" /></label> 
+		</div>
+
+		<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
+			<span style="width: 30%;">Etherscan-api токен:</span>
+			<label><input type="text" name="eth_token" maxlength="128" /></label> 
+		</div>
+
+		<div align="center" style="padding: 20px;">
+		    <input TYPE="button" Value="ОК" onClick="set_eth(this.form)">
+		</div>
+	</div>
+</form>
+
+
+<script> 
+	function set_eth(form){
+		let xhr = new XMLHttpRequest();
+	 	xhr.open("POST", 'http://localhost:8000/user/eth_settings/');
+		xhr.setRequestHeader("Content-type", 'application/x-www-form-urlencoded');
+		xhr.setRequestHeader("Authorization", `JWT ${localStorage.getItem('token')}`);
+		xhr.setRequestHeader("X-CSRFToken", form[0].value);
+		xhr.onreadystatechange = function() {
+		    if(xhr.readyState == 4 & xhr.status === 200) {
+		    
+		    }
+		    else if (xhr.readyState == 4){
+		
+		    }
+		}
+		xhr.send(`eth_adress=${form[1].value}&eth_token=${form[2].value}`);
+	}
+</script>
