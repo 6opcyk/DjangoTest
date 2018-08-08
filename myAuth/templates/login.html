@@ -1,3 +1,7 @@
+{% load static %}
+<script src='{% static "login.js" %}'></script>
+<script src='{% static "ajax.js" %}'></script>
+
 <form class="account-form">
  	<div style="background-color: #90EE90;  width: 50%; padding-top: 15px; margin: 100px auto 0px auto; border: 10px double #3CB371">
  		{% csrf_token %}
@@ -10,33 +14,20 @@
 		 	<label><input type="text" name="password" maxlength="128" required /></label> 
 	 	</div>
 	 	<div align="center" style="padding: 20px;">
-	 		<input TYPE="button" Value="Click" onClick="loginMe(this.form)">
+	 		<input TYPE="button" Value="Click" onClick="request(
+	 		'POST', 
+	 		'http://localhost:8000/user/auth/', 
+	 		{
+	 			'Content-type': 'application/x-www-form-urlencoded', 
+	 			'X-CSRFToken': this.form[0].value
+	 		}, 
+	 		succsess, 
+	 		error, 
+	 		`email=${this.form[1].value}&password=${this.form[2].value}`
+	 		)">
 	    </div>
 	    <div align="center" style="margin-bottom: 20px; color: red;">
 	    	<span class="msgText"></span>
 	    </div>
     </div>
 </form> 
-
-<script> 
-	function loginMe(form){
-	let xhr = new XMLHttpRequest();
- 	xhr.open("POST", 'http://localhost:8000/user/auth/');
-	xhr.setRequestHeader("Content-type", 'application/x-www-form-urlencoded');
-	xhr.setRequestHeader("X-CSRFToken", form[0].value);
-	console.log(form[0].value)
-	xhr.onreadystatechange = function() {
-	    if(xhr.readyState == 4 & xhr.status == 200) {
-	        var token = xhr.response.split(":")[1].slice(1,-2);
-	        localStorage.setItem("token", token);
-	        var msgText = document.getElementsByClassName("msgText")[0];
-	    	msgText.innerText = "Succsess";
-	    }
-	    else if (xhr.readyState == 4){
-	    	var msgText = document.getElementsByClassName("msgText")[0];
-	    	msgText.innerText = "Error";
-	    }
-	}
-	xhr.send(`email=${form[1].value}&password=${form[2].value}`);
-}
-</script>

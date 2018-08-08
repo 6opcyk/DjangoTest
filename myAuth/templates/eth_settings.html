@@ -1,3 +1,7 @@
+{% load static %}
+<script src='{% static "eth_settings.js" %}'></script>
+<script src='{% static "ajax.js" %}'></script>
+
 <form class="account-form">
 	<div style="background-color: #90EE90;  width: 50%; padding-top: 15px; margin: 100px auto 0px auto; border: 10px double #3CB371">
 		{% csrf_token %}
@@ -12,27 +16,23 @@
 		</div>
 
 		<div align="center" style="padding: 20px;">
-		    <input TYPE="button" Value="ОК" onClick="set_eth(this.form)">
+		    <input TYPE="button" Value="ОК" onClick="request(
+	 		'POST', 
+	 		'http://localhost:8000/user/eth_settings/', 
+	 		{
+	 			'Content-type': 'application/x-www-form-urlencoded', 
+	 			'X-CSRFToken': this.form[0].value,
+	 			'Authorization': `JWT ${localStorage.getItem('token')}`
+	 		}, 
+	 		succsess, 
+	 		error, 
+	 		`ether_token=${form[2].value}&ether_adress=${form[1].value}`
+	 		)">
+		</div>
+		<div align="center" style="margin-bottom: 20px; color: red;">
+	   		<span class="msgText"></span>
 		</div>
 	</div>
+	
 </form>
 
-
-<script> 
-	function set_eth(form){
-		let xhr = new XMLHttpRequest();
-	 	xhr.open("POST", 'http://localhost:8000/user/eth_settings/');
-		xhr.setRequestHeader("Content-type", 'application/x-www-form-urlencoded');
-		xhr.setRequestHeader("Authorization", `JWT ${localStorage.getItem('token')}`);
-		xhr.setRequestHeader("X-CSRFToken", form[0].value);
-		xhr.onreadystatechange = function() {
-		    if(xhr.readyState == 4 & xhr.status === 200) {
-		    
-		    }
-		    else if (xhr.readyState == 4){
-		
-		    }
-		}
-		xhr.send(`eth_adress=${form[1].value}&eth_token=${form[2].value}`);
-	}
-</script>

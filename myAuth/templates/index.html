@@ -1,3 +1,6 @@
+{% load static %}
+<script src='{% static "eth.js" %}'></script>
+<script src='{% static "ajax.js" %}'></script>
 
 <h1 align="center" style="margin-top: 50px;">Django App<h1>
 <div align="center" style="padding: 50px;">	
@@ -14,30 +17,19 @@
 	<form>
 		{% csrf_token %}
     	<div align="center">
-	    	<input TYPE="button" Value="Ether" onClick="eth(this.form)">
+	    	<input TYPE="button" Value="Ether" onClick="request(
+	 		'POST', 
+	 		'http://localhost:8000/eth/', 
+	 		{
+	 			'Content-type': 'application/x-www-form-urlencoded', 
+	 			'X-CSRFToken': this.form[0].value, 
+	 			'Authorization': `JWT ${localStorage.getItem('token')}`
+	 		}, 
+	 		succsess, 
+	 		error
+	 		)">
 	    </div>
 	</form>
 </div>
 <div id="target"></div>
 
-<script type="text/javascript">
-	function eth(form){
-		let xhr = new XMLHttpRequest();
-	 	xhr.open("POST", 'http://localhost:8000/eth/');
-		xhr.setRequestHeader("Content-type", 'application/x-www-form-urlencoded');
-		xhr.setRequestHeader("Authorization", `JWT ${localStorage.getItem('token')}`);
-		xhr.setRequestHeader("X-CSRFToken", form[0].value);
-		xhr.onreadystatechange = function() {
-		    if(xhr.readyState == 4 & xhr.status === 200) {
-		    	var newdiv = document.createElement('div');
-		    	newdiv.innerHTML = xhr.response
-		    	document.getElementById('target').appendChild(newdiv); 
-		    	console.log(xhr.response)
-		    }
-		    else if (xhr.readyState == 4){
-		
-		    }
-		}
-		xhr.send();
-}
-</script>

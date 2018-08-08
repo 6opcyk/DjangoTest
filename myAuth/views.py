@@ -36,8 +36,8 @@ def eth_settings(request):
 		valid_data = VerifyJSONWebTokenSerializer().validate(user_data)
 		jwt_user = str(valid_data['user'])
 		user = Account.objects.get(email = jwt_user)
-		user.eth_token = data["eth_token"]
-		user.eth_adress = data["eth_adress"]
+		user.eth_token = data["ether_token"]
+		user.eth_adress = data["ether_adress"]
 		user.save()
 		return HttpResponse("OK!")
 	else:
