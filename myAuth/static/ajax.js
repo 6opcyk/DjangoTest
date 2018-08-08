@@ -1,9 +1,7 @@
 function request(method, url, headers, succsess_func, error_func, data=""){
-	console.log(data)
 	let xhr = new XMLHttpRequest();
  	xhr.open(method, url);
  	for (key in headers){
- 		console.log(key, headers[key])
  		xhr.setRequestHeader(key, headers[key]);
  	}
 	xhr.onreadystatechange = function() {

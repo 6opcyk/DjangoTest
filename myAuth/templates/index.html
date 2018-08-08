@@ -1,7 +1,3 @@
-{% load static %}
-<script src='{% static "eth.js" %}'></script>
-<script src='{% static "ajax.js" %}'></script>
-
 <h1 align="center" style="margin-top: 50px;">Django App<h1>
 <div align="center" style="padding: 50px;">	
 	<form action="user/new">
@@ -13,22 +9,8 @@
 	<form action="user/eth_settings">
     	<input type="submit" value="Etherscan settings!" />
 	</form>
-
-	<form>
-		{% csrf_token %}
-    	<div align="center">
-	    	<input TYPE="button" Value="Ether" onClick="request(
-	 		'POST', 
-	 		'http://localhost:8000/eth/', 
-	 		{
-	 			'Content-type': 'application/x-www-form-urlencoded', 
-	 			'X-CSRFToken': this.form[0].value, 
-	 			'Authorization': `JWT ${localStorage.getItem('token')}`
-	 		}, 
-	 		succsess, 
-	 		error
-	 		)">
-	    </div>
+	<form action="user/eth">
+    	<input type="submit" value="Etherscan!" />
 	</form>
 </div>
 <div id="target"></div>

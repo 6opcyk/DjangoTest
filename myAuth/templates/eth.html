@@ -1,0 +1,31 @@
+{% load static %}
+<script src='{% static "eth.js" %}'></script>
+<script src='{% static "ajax.js" %}'></script>
+
+<p>Курс эфириума: <span id = "rate"></span></p>
+
+<h3 style="margin-top: 50px">Последний блок:</h3>
+<p>Номер: <span id = "number"></span></p> 
+<p>Дата создания: <span id = "date"></p> 
+<p>Хэш: <span id = "hash"></p> 
+<p>Сложность: <span id = "difficulty"></p> 
+<p>Использовано газа: <span id = "gasUsed"></p> 
+<a href="{{ link }}" id = "link">Подробнее...</a>
+<p>Ваш баланс: <span id = "balance"></p>
+
+{% csrf_token %}
+<script type="text/javascript">
+	csrf = document.getElementsByName("csrfmiddlewaretoken")[0].value
+	request(
+		'POST', 
+ 		'http://localhost:8000/user/eth/', 
+ 		{
+ 			'Content-type': 'application/x-www-form-urlencoded', 
+ 			'X-CSRFToken': csrf,
+ 			'Authorization': `JWT ${localStorage.getItem('token')}`
+ 		}, 
+ 		succsess, 
+ 		error
+ 		)
+</script>
+
