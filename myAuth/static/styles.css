@@ -1,0 +1,27 @@
+.container {
+	background-color: #90EE90;  
+	width: 50%; 
+	padding-top: 15px; 
+	margin: 100px auto 0px auto; 
+	border: 10px double #3CB371;
+}
+
+.input_field{
+	display: flex; 
+	justify-content: center; 
+	padding: 10px; 
+	margin: auto;
+}
+
+.input_header{
+	width: 30%;
+}
+
+.confirm_button{
+	padding: 20px;
+}
+
+.msg{
+	margin-bottom: 20px; 
+	color: red;
+}

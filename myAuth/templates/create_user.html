@@ -1,31 +1,32 @@
 {% load static %}
 <script src='{% static "create_user.js" %}'></script>
 <script src='{% static "ajax.js" %}'></script>
+<link rel="stylesheet" type="text/css" href='{% static "styles.css" %}'>
 
-<form class="account-form">
- 	<div style="background-color: #90EE90;  width: 50%; padding-top: 15px; margin: 100px auto 0px auto; border: 10px double #3CB371">
+<form>
+ 	<div class = "container">
  		{% csrf_token %}
-		<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
-			<span style="width: 30%;">Email:</span>
+		<div class = "input_field">
+			<span class = "input_header">Email:</span>
 			<label><input type="email" name="email" maxlength="254" required/></label>
 	 	</div>
 
-	 	<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
-		 	<span style="width: 30%;">Имя:</span>
+	 	<div class = "input_field">
+		 	<span class = "input_header">Имя:</span>
 		 	<label><input type="text" name="first_name" maxlength="120" required/></label> 
 	 	</div>
 
-	 	<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
-		 	<div style="width: 30%;">Фамилия:</div>
+	 	<div class = "input_field">
+		 	<span class = "input_header">Фамилия:</span>
 		 	<label><input type="text" name="last_name" maxlength="120" required/></label> 
 	 	</div>
 
-	 	<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
-	 		<span style="width: 30%;">Пароль:</span>
+	 	<div class = "input_field">
+	 		<span class = "input_header">Пароль:</span>
 		 	<label><input type="text" name="password" maxlength="128" required /></label> 
 	 	</div>
 
-	 	<div align="center" style="padding: 20px;">
+	 	<div class = "confirm_button" align="center">
 	    	<input TYPE="button" Value="Добавить пользователя" onClick="request(
 	 		'POST', 
 	 		'http://localhost:8000/user/new/', 
@@ -38,8 +39,8 @@
 	 		`email=${form[1].value}&first_name=${form[2].value}&last_name=${form[3].value}&password=${form[4].value}`
 	 		)">
 	    </div>
-	    
-	    <div align="center" style="margin-bottom: 20px; color: red;">
+
+	    <div class = "msg" align="center">
 	    	<span class="msgText"></span>
 	    </div>
     </div>

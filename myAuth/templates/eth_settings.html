@@ -1,21 +1,22 @@
 {% load static %}
 <script src='{% static "eth_settings.js" %}'></script>
 <script src='{% static "ajax.js" %}'></script>
+<link rel="stylesheet" type="text/css" href='{% static "styles.css" %}'>
 
 <form class="account-form">
-	<div style="background-color: #90EE90;  width: 50%; padding-top: 15px; margin: 100px auto 0px auto; border: 10px double #3CB371">
+	<div  class = "container">
 		{% csrf_token %}
-		<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
-			<span style="width: 30%;">Etherscan адрес:</span>
+		<div  class = "input_field">
+			<span class = "input_header">Etherscan адрес:</span>
 			<label><input type="text" name="eth_adress" maxlength="128" /></label> 
 		</div>
 
-		<div style="display: flex; justify-content: center; padding: 10px; margin: auto;">
-			<span style="width: 30%;">Etherscan-api токен:</span>
+		<div  class = "input_field">
+			<span class = "input_header">Etherscan-api токен:</span>
 			<label><input type="text" name="eth_token" maxlength="128" /></label> 
 		</div>
 
-		<div align="center" style="padding: 20px;">
+		<div align="center" class = "confirm_button">
 		    <input TYPE="button" Value="ОК" onClick="request(
 	 		'POST', 
 	 		'http://localhost:8000/user/eth_settings/', 
@@ -29,7 +30,7 @@
 	 		`ether_token=${form[2].value}&ether_adress=${form[1].value}`
 	 		)">
 		</div>
-		<div align="center" style="margin-bottom: 20px; color: red;">
+		<div class = "msg" align="center">
 	   		<span class="msgText"></span>
 		</div>
 	</div>
